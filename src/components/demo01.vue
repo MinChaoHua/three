@@ -37,7 +37,7 @@ export default {
             });
             this.renderer.setSize(this.width, this.height);
             container.appendChild(this.renderer.domElement);
-            //this.renderer.setClearColorHex(0xFFFFFF, 1.0);
+            this.renderer.setClearColor(0xFFFFFF, 1.0);
         },
         //相机
         initCamera() {
@@ -91,14 +91,15 @@ export default {
                 this.initScene();
                 this.initLight();
                 this.initObject();
+                this.renderer.render(this.scene,this.camera);
             }
     }
 }
 </script>
 
 <style scoped>
-#id{
-    height: 1000px;
+#container{
+    height: 500px;
     width: 100%;
 }
 
