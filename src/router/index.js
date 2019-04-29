@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import demo01 from '@/components/demo01'
 import demo02 from '@/components/demo02'
 import demo03 from '@/components/demo03'
+import demo04 from '@/components/demo04'
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +28,11 @@ export default new Router({
       path: '/03',
       name: 'demo03',
       component: demo03
+    },
+    {
+      path: '/04',
+      name: 'demo04',
+      component: demo04
     }
   ]
 })
