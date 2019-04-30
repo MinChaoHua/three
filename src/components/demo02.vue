@@ -80,25 +80,28 @@ export default {
         //物体
         initObject() {
             var geometry = new THREE.SphereGeometry( 50, 16,16 );
-            var material = new THREE.MeshBasicMaterial( { color: 0xFF69B4 } );
+            var texture = THREE.ImageUtils.loadTexture("../../static/images/timg.gif",null,function(t) {});
+            texture.needsUpdate = true;
+            var material = new THREE.MeshBasicMaterial({map:texture});
+           // var material = new THREE.MeshBasicMaterial( { color: 0xFF69B4 } );
             this.circle = new THREE.Mesh( geometry, material );
             this.circle.geometry.verticesNeedUpdate = true;
             this.circle.geometry.normalsNeedUpdate = true;
 
             // 添加辅助轴
-            this.axis = new THREE.AxisHelper(150);
-            var axis =  this.axis;
-            this.scene.add(axis);
+            // this.axis = new THREE.AxisHelper(150);
+            // var axis =  this.axis;
+            // this.scene.add(axis);
 
-            var geometry1 = new THREE.PlaneBufferGeometry( 50, 200, 32 );// 平面尺寸
-            var material1 = new THREE.MeshBasicMaterial( {color: 0xcccccc, side: THREE.DoubleSide} );
+            var geometry1 = new THREE.PlaneBufferGeometry( 50, 200, 32 );// 平面尺寸   
+            var material1 = new THREE.MeshBasicMaterial( {color: 0xFF69B4, side: THREE.DoubleSide} );
             var plane = new THREE.Mesh( geometry1, material1 );
             plane.receiveShadow = true;//接受阴影投影
             // 平面位置
-            plane.rotation.x = -0.5*Math.PI;
-            plane.position.x = 0;
-            plane.position.y = 0;
-            plane.position.z = -1000;
+            plane.rotation.x = -1.5*Math.PI;
+            plane.position.x = 10;
+            plane.position.y = 10;
+            plane.position.z = -500;
              
             this.scene.add( plane );
             this.scene.add( this.circle );
@@ -107,7 +110,7 @@ export default {
          updata(){
             requestAnimationFrame(this.updata);
             this.circle.rotation.y +=0.01;
-            this.axis.rotation.y +=0.01;
+            //this.axis.rotation.y +=0.01;
             this.renderer.render(this.scene, this.camera);
            
         },
