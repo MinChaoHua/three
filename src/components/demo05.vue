@@ -4,8 +4,12 @@
 </div>
 </template>
 <script>
+/**
+cnpm three --save
+
+ */
 import * as THREE from 'THREE'
-import OrbitControls from 'three-orbitcontrols'
+import  'three-orbitcontrols'//鼠标移动
 export default {
     data(){
         return{
@@ -49,7 +53,11 @@ export default {
             this.camera.up.y = 0;
             this.camera.up.z = 600;
             this.camera.lookAt(0,0,0);
-            var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+            //鼠标可移动物体
+            var controls = new THREE.OrbitControls(this.camera,this.renderer.domElement);
+            controls.target = new THREE.Vector3(0, 0, 0);//控制焦点
+            controls.autoRotate = false;//将自动旋转关闭
+            var clock = new THREE.Clock();//用于更新轨道控制器
             controls.update();
         },
         //场景
@@ -58,13 +66,14 @@ export default {
         },
         //灯光
         initLight() {
+            //平行光
             let light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
-            light.position.set(100, 100, 200);
+            light.position.set(100, 500, 20).normalize();
             this.scene.add(light);
         },
         //物体
         initObject() {
-                var geometry = new THREE.BoxBufferGeometry( 400,400,400);
+                var geometry = new THREE.BoxBufferGeometry( 100,100,100);
                // var geometry = new THREE.SphereGeometry(300, 60,120);     
                // var texture = THREE.ImageUtils.loadTexture("../../static/images/1.jpg",null,function(t) {});
                // texture.needsUpdate = true;
@@ -78,6 +87,16 @@ export default {
                 mesh.position.y = 0;
                 mesh.position.z = 0;
                 this.scene.add(mesh);
+
+                var planeGeo = new THREE.PlaneGeometry(500,500,10,10);//创建平面
+                var planeMat = new THREE.MeshLambertMaterial({  //创建材料
+                color:0x666666,
+                wireframe:false
+                });
+                 var planeMesh = new THREE.Mesh(planeGeo, planeMat);//创建网格模型
+                planeMesh.position.set(0, 0, -40);//设置平面的坐标
+                planeMesh.rotation.x = -0.5 * Math.PI;//将平面绕X轴逆时针旋转90度
+                this.scene.add(planeMesh);//将平面添加到场景中
                 
         },
         startAll(){
